@@ -3,218 +3,230 @@
     Project for CZ3006 Net Centric Computing Nanyang Technological University.
     Project was done as part of a coursework requirement for CZ3006 in AY17/18 Semester 1.
 
-    html includes both css and javascript codes as the instruction was to create an HTML document
-    //-->
+    html includes both css and javascript codes as the instruction was to create a HTML document
+    -->
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>CheckOut Form</title>
-        <!-- Icon for Web -->
-        <link rel="shortcut icon" href="img/apple.png" />
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <style type="text/css">
-            div.row {
-                border: 1px solid;
-                padding-top: 1rem;
-                padding-bottom: 1rem;
-            }
-        </style>
-        <script type="text/javascript">
-            //check the character input for number
-            function isInteger(name)
-            {
-                var i;
-                var inputChar=document.getElementById(name).value;
-                //loop through all string
-                for (i=0;i<inputChar.length;i++)
-                {
-                    var oneChar=inputChar.charAt(i);
-                    if(isNaN(oneChar)) //check for character whether is a digit
-                    {
-                        alert("Invalid digits! Please enter only numeric characters");
-                        document.getElementById(name).value="";
-                        document.getElementById("totalCostId").value="NaN";
-                    }//end if
-                    else
-                    {
-                        getTotalCost();
-                    }
-                }
-            }
+<head>
+    <meta charset="UTF-8">
+    <title>CheckOut Form</title>
+    <!-- Icon for Web -->
+    <link rel="shortcut icon" href="img/appleicon.png"/>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style type="text/css">
+        div.row.form {
+            border: 1px solid;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
 
-            //perform the calculation
-            function getTotalCost()
-            {
-                var appleVal = document.getElementById("appleValID").value;
-                var orangeVal  = document.getElementById("orangeValID").value;
-                var bananaVal = document.getElementById("bananaValID").value;
-                var totalCost = Math.round((0.69*appleVal+0.59*orangeVal+0.39*bananaVal)*100)/100;
-                document.getElementById("totalCostId").value = totalCost;
-            }//end calculation
-
-            //check the entire form
-            function validateForm(form) {
-
-                var userName = form.userName.value;
-                var appleVal = form.appleVal.value;
-                var orangeVal = form.orangeVal.value;
-                var bananaVal = form.bananaVal.value;
-                var success = 1;
-                var flag=0;
-
-                //check the radiobutton status
-                if(document.getElementById("visaID").checked===true||
-                   document.getElementById("masterID").checked===true||
-                   document.getElementById("discoverID").checked===true)
+        div img {
+            height: 200px;
+            width: 100%;
+        }
+    </style>
+    <script type="text/javascript">
+        //check the character input for number
+        function isInteger(name) {
+            var i;
+            var inputChar = document.getElementById(name).value;
+            //loop through all string
+            for (i = 0; i < inputChar.length; i++) {
+                var oneChar = inputChar.charAt(i);
+                if (isNaN(oneChar)) //check for character whether is a digit
                 {
-                    flag=1;
-                }
-
-                //detect the username
-                if (!userName)
-                {
-                    document.getElementById("usernamePopup").style.display = "block";
-                    form.userName.style.backgroundColor = "yellow";
-                    form.userName.style.border = "3px red solid";
-                    success = 0;
-                }
-                else
-                {
-                    form.userName.style.backgroundColor = "";
-                    form.userName.style.border = "";
-                    document.getElementById("usernamePopup").style.display = "none";
-                }
-
-                //detect the apple amount
-                if (!appleVal)
-                {
-                    document.getElementById("applePopup").style.display = "block";
-                    form.appleVal.style.backgroundColor = "yellow";
-                    form.appleVal.style.border = "3px red solid";
-                    success = 0;
-                }
-                else
-                {
-                    form.appleVal.style.backgroundColor = "";
-                    form.appleVal.style.border = "";
-                    document.getElementById("applePopup").style.display = "none";
-                }
-
-                //detect the banana amount
-                if (!bananaVal)
-                {
-                    document.getElementById("bananaPopup").style.display = "block";
-                    form.bananaVal.style.backgroundColor = "yellow";
-                    form.bananaVal.style.border = "3px red solid";
-                    success = 0;
-                }
-                else
-                {
-                    form.bananaVal.style.backgroundColor = "";
-                    form.bananaVal.style.border = "";
-                    document.getElementById("bananaPopup").style.display = "none";
-                }
-
-                //detect the orange amount
-                if (!orangeVal)
-                {
-                    document.getElementById("orangePopup").style.display = "block";
-                    form.orangeVal.style.backgroundColor = "yellow";
-                    form.orangeVal.style.border = "3px red solid";
-                    success = 0;
-                }
-                else
-                {
-                    form.orangeVal.style.backgroundColor = "";
-                    form.orangeVal.style.border = "";
-                    document.getElementById("orangePopup").style.display = "none";
-                }
-
-                if(flag!==1)
-                {
-                    document.getElementById("payPopup").style.display = "block";
-                    success = 0;
-                }
-                else
-                {
-                    document.getElementById("payPopup").style.display = "none";
-                }
-
-                if(!success)
-                {
-                    alert("The form is incomplete.  Please read the error message(s).");
-                    return false;
-                }
+                    alert("Invalid digits! Please enter only numeric characters");
+                    document.getElementById(name).value = "";
+                    document.getElementById("totalCostId").value = "NaN";
+                }//end if
                 else {
-                    alert("The form was submitted successfully!");
-                    return true;
+                    getTotalCost();
                 }
             }
-        </script>
-    </head>
-    <body>
-        <div class="container">
-            <h1 class="h1"><b>Fruit Shop</b></h1>
-            <br>
-            <h2 class="h2"><b>Order Form</b></h2>
-            <br>
-            <br>
-            <!-- onSubmit returns a value to the form's submit event and prevent submission if false-->
-            <form class="" action="/receipt.php" method="post" onSubmit="return validateForm(this);">
-                <label class="control-label" for="userNameID">Name:</label>
-                <input type="text" name="userName"  id="userNameID" class="form-control" placeholder="Please Enter Your Name"><br>
-                <div id="usernamePopup" style="display:none;">
-                    <span style="color:red;">Please fill in your username.</span>
-                </div><br>
-                <div class="row">
-                    <h4 class="h4 col-sm-12"><u><strong>Please enter the amount of fruits you want to order:</strong></u></h4><br><br><br>
-                    <div class="col-sm-4">
-                        <label for="appleValID">Apple(69&cent each):</label>
-                        <input type="text" name="appleVal"  id="appleValID" class="form-control" placeholder="Enter amount of apples" onKeyup="isInteger('appleValID');"><br>
-                        <div id="applePopup" style="display:none;">
-                            <span style="color:red;">Please enter the number of apple.</span>
-                        </div><br>
-                    </div>
-                    <div class="col-sm-4">
-                        <label for="orangeValID">Orange(59&cent each):</label>
-                        <input type="text" name="orangeVal"  id="orangeValID" class="form-control" placeholder="Enter amount of oranges" onKeyup="isInteger('orangeValID');"><br>
-                        <div id="orangePopup" style="display:none;">
-                            <span style="color:red;">Please enter the number of orange.</span>
-                        </div><br>
-                    </div>
-                    <div class="col-sm-4">
-                        <label for="bananaValID">Banana(39&cent each):</label>
-                        <input type="text" name="bananaVal"  id="bananaValID" class="form-control" placeholder="Enter amount of bananas" onKeyup="isInteger('bananaValID');"><br>
-                        <div id="bananaPopup" style="display:none;">
-                            <span style="color:red;">Please enter the number of banana.</span>
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                    <label for="totalCostId">Total Cost:</label>
-                    <input type="text" name="totalCost"  class="form-control" id="totalCostId" onfocus="this.blur();"><br>
-                    <h4 class="h4"><u><b>Payment Methods:</b></u></h4>
-                    <div class="col-sm-4">
-                        <input type="radio" name="paymentMethod" id="visaID" value="Visa" />
-                        <label for="visaID">Visa</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="radio" name="paymentMethod" id="masterID" value="Master" />
-                        <label for="masterID">Master</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="radio" name="paymentMethod" id="discoverID" value="Discover" />
-                        <label for="discoverID">Discover</label>
-                    </div>
-                        <div id="payPopup" style="display:none;">
-                            <span style="color:red;">Kindly select the type of payment.</span>
-                        </div><br>
-                    <input type="submit" class="btn btn-primary" value="Submit Form">
-                    <input type="reset" class="btn btn-default" value="Reset Form">
-                        </div>
-                </div>
-            </form>
+        }
+
+        //perform the calculation
+        function getTotalCost() {
+            var appleVal = document.getElementById("appleValID").value;
+            var orangeVal = document.getElementById("orangeValID").value;
+            var bananaVal = document.getElementById("bananaValID").value;
+            var totalCost = Math.round((0.69 * appleVal + 0.59 * orangeVal + 0.39 * bananaVal) * 100) / 100;
+            document.getElementById("totalCostId").value = totalCost;
+        }//end calculation
+
+        //check the entire form
+        function validateForm(form) {
+
+            var userName = form.userName.value;
+            var appleVal = form.appleVal.value;
+            var orangeVal = form.orangeVal.value;
+            var bananaVal = form.bananaVal.value;
+            var success = 1;
+            var flag = 0;
+
+            //check the radiobutton status
+            if (document.getElementById("visaID").checked === true ||
+                document.getElementById("masterID").checked === true ||
+                document.getElementById("discoverID").checked === true) {
+                flag = 1;
+            }
+
+            //detect the username
+            if (!userName) {
+                document.getElementById("usernamePopup").style.display = "block";
+                form.userName.style.backgroundColor = "yellow";
+                form.userName.style.border = "3px red solid";
+                success = 0;
+            }
+            else {
+                form.userName.style.backgroundColor = "";
+                form.userName.style.border = "";
+                document.getElementById("usernamePopup").style.display = "none";
+            }
+
+            //detect the apple amount
+            if (!appleVal) {
+                document.getElementById("applePopup").style.display = "block";
+                form.appleVal.style.backgroundColor = "yellow";
+                form.appleVal.style.border = "3px red solid";
+                success = 0;
+            }
+            else {
+                form.appleVal.style.backgroundColor = "";
+                form.appleVal.style.border = "";
+                document.getElementById("applePopup").style.display = "none";
+            }
+
+            //detect the banana amount
+            if (!bananaVal) {
+                document.getElementById("bananaPopup").style.display = "block";
+                form.bananaVal.style.backgroundColor = "yellow";
+                form.bananaVal.style.border = "3px red solid";
+                success = 0;
+            }
+            else {
+                form.bananaVal.style.backgroundColor = "";
+                form.bananaVal.style.border = "";
+                document.getElementById("bananaPopup").style.display = "none";
+            }
+
+            //detect the orange amount
+            if (!orangeVal) {
+                document.getElementById("orangePopup").style.display = "block";
+                form.orangeVal.style.backgroundColor = "yellow";
+                form.orangeVal.style.border = "3px red solid";
+                success = 0;
+            }
+            else {
+                form.orangeVal.style.backgroundColor = "";
+                form.orangeVal.style.border = "";
+                document.getElementById("orangePopup").style.display = "none";
+            }
+
+            if (flag !== 1) {
+                document.getElementById("payPopup").style.display = "block";
+                success = 0;
+            }
+            else {
+                document.getElementById("payPopup").style.display = "none";
+            }
+
+            if (!success) {
+                alert("The form is incomplete.  Please read the error message(s).");
+                return false;
+            }
+            else {
+                alert("The form was submitted successfully!");
+                return true;
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h1 class="h1"><b>Fruit Shop</b></h1>
+    <!--<div class="row">
+        <img src="img/store.jpg" alt="Fruit store">
+    </div>-->
+    <br>
+    <h2 class="h2"><b>Order Form</b></h2>
+    <br>
+    <!-- onSubmit returns a value to the form's submit event and prevent submission if false-->
+    <form class="" action="receipt.php" method="post" onSubmit="return validateForm(this);">
+        <label class="control-label" for="userNameID">Name:</label>
+        <input type="text" name="userName" id="userNameID" class="form-control"
+               placeholder="Please Enter Your Name"><br>
+        <div id="usernamePopup" style="display:none;">
+            <span style="color:red;">Please fill in your username.</span>
         </div>
-    </body>
+        <br>
+        <div class="row form">
+            <h4 class="h4 col-sm-12"><u><strong>Please enter the amount of fruits you want to order:</strong></u></h4>
+            <br><br><br>
+            <div class="col-sm-4">
+                <label for="appleValID">Apple(69&cent each):</label>
+                <input type="text" name="appleVal" id="appleValID" class="form-control"
+                       placeholder="Enter amount of apples" onKeyup="isInteger('appleValID');"><br>
+                <div id="applePopup" style="display:none;">
+                    <span style="color:red;">Please enter the number of apple.</span>
+                </div>
+                <br>
+                <img src="img/apple.png" class="img-responsive center-block" alt="apple">
+            </div>
+            <div class="col-sm-4">
+                <label for="orangeValID">Orange(59&cent each):</label>
+                <input type="text" name="orangeVal" id="orangeValID" class="form-control"
+                       placeholder="Enter amount of oranges" onKeyup="isInteger('orangeValID');"><br>
+                <div id="orangePopup" style="display:none;">
+                    <span style="color:red;">Please enter the number of orange.</span>
+                </div>
+                <br>
+                <img src="img/orange.jpeg" class="img-responsive center-block" alt="orange">
+            </div>
+            <div class="col-sm-4">
+                <label for="bananaValID">Banana(39&cent each):</label>
+                <input type="text" name="bananaVal" id="bananaValID" class="form-control"
+                       placeholder="Enter amount of bananas" onKeyup="isInteger('bananaValID');"><br>
+                <div id="bananaPopup" style="display:none;">
+                    <span style="color:red;">Please enter the number of banana.</span>
+                </div>
+                <br>
+                <img src="img/banana.jpeg" class="img-responsive center-block" alt="banana">
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="col-sm-12">
+                <br>
+                <label for="totalCostId">Total Cost:</label>
+                <input type="text" name="totalCost" class="form-control" id="totalCostId" onfocus="this.blur();"><br>
+                <h4 class="h4"><u><b>Payment Methods:</b></u></h4>
+                <div class="col-sm-4">
+                    <input type="radio" name="paymentMethod" id="visaID" value="Visa"/>
+                    <label for="visaID">Visa</label>
+                    <img src="img/visa.png" class="img-responsive center-block" alt="visa">
+                </div>
+                <div class="col-sm-4">
+                    <input type="radio" name="paymentMethod" id="masterID" value="Master"/>
+                    <label for="masterID">Master</label>
+                    <img src="img/master.png" class="img-responsive center-block" alt="master">
+                </div>
+                <div class="col-sm-4">
+                    <input type="radio" name="paymentMethod" id="discoverID" value="Discover"/>
+                    <label for="discoverID">Discover</label>
+                    <img src="img/discover.jpg" class="img-responsive center-block" alt="discover">
+                </div>
+                <div id="payPopup" style="display:none;">
+                    <span style="color:red;">Kindly select the type of payment.</span>
+                </div>
+                <br>
+                <input type="submit" class="btn btn-primary" value="Submit Form">
+                <input type="reset" class="btn btn-default" value="Reset Form">
+            </div>
+        </div>
+    </form>
+</div>
+</body>
 </html>
