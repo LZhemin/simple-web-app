@@ -31,12 +31,16 @@
             <br>
             <h2 class="h2"><b>Receipt Form</b></h2>
             <br>
-            <?php
+     <?php
 
     //Get form element attribute value
-    $appleAmount = $_POST["appleAmountName"];
-    $bananaAmount = $_POST["bananaAmountName"];
-    $orangeAmount = $_POST["orangeAmountName"];
+    $appleVal = $_POST["appleVal"];
+    $bananaVal = $_POST["bananaVal"];
+    $orangeVal = $_POST["orangeVal"];
+
+echo "<h2>$appleVal</h2>";
+echo "$bananaVal<br>";
+echo "$orangeVal<br>";
 
     //write varibles
     $appleWrite = 0;
@@ -46,43 +50,44 @@
     //Write to file
     function writeFile($appleWrite,$bananaWrite, $orangeWrite)
     {
-            $fileName = "order.txt";
-            $file = fopen($fileName, 'w') or exit("Unable to open file ($fileName)");
-            if(flock($file, LOCK_EX)) //Prevent other from accessing the file
+            $fileName = "orders.txt";
+            $fptr = fopen($fileName, 'w') or exit("Unable to open file ($fileName)");
+            if(flock($fptr, LOCK_EX)) //Prevent other from accessing the file
             {
                     $outputString = "Total number of apples: $appleWrite \r\nTotal number of oranges: $orangeWrite \r\nTotal number of bananas: $bananaWrite";
-                    fwrite($file, $outputString);
-                    flock($file, LOCK_UN); //release lock
+                    fwrite($fptr, $outputString);
+                    flock($fptr, LOCK_UN); //release lock
             }
             else
                      echo "Error locking file!";
-            fclose($file);
+            fclose($fptr);
     }
-    $fileName = "order.txt";
+    $fileName = "orders.txt";
+
     //Check file exisited
     if(file_exists($fileName))
     {
             $pointerIndex = 0;
-            $file = fopen($fileName, 'r') or exit("unable to open file ($fileName)");
-            if(flock($file, LOCK_SH)) //allow other processes to access the file
+            $fptr = fopen($fileName, 'r') or exit("unable to open file ($fileName)");
+            if(flock($fptr, LOCK_SH)) //allow other processes to access the file
             {
-                    while(! feof($file)) //Retrieve file information
+                    while(! feof($fptr)) //Retrieve file information
                     {
-                            $line = fgets($file); // Get line by line
+                            $line = fgets($fptr); // Get line by line
                             $previousAmount = preg_split("/:/", $line); //Split line by semi colon to get previous data
                             //array 0 is the string information
                             //array 1 is the number store
                             if($pointerIndex ==0)
                             {
-                                    $appleWrite  = $previousAmount[1] + $appleAmount;
+                                    $appleWrite  = $previousAmount[1] + $appleVal;
                             }
                             elseif($pointerIndex==1)
                             {
-                                $orangeWrite = $previousAmount[1]+ $orangeAmount;
+                                $orangeWrite = $previousAmount[1]+ $orangeVal;
 
                             }
                             elseif($pointerIndex==2){
-                                    $bananaWrite = $previousAmount[1]+ $bananaAmount;
+                                    $bananaWrite = $previousAmount[1]+ $bananaVal;
                             }
                             $pointerIndex++;
                     }
@@ -90,15 +95,14 @@
             else
                     echo "Error locking file!";
 
-            fclose($file);
+            fclose($fptr);
             writeFile($appleWrite,$bananaWrite, $orangeWrite);
     }
-
     else
     {
-            $appleWrite = $appleAmount;
-            $bananaWrite = $bananaAmount;
-            $orangeWrite = $orangeAmount;
+            $appleWrite = $appleVal;
+            $bananaWrite = $bananaVal;
+            $orangeWrite = $orangeVal;
             writeFile($appleWrite,$bananaWrite, $orangeWrite);
     }
     ?>
