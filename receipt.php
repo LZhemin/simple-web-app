@@ -20,6 +20,36 @@
                 padding-top: 1rem;
                 padding-bottom: 1rem;
             }
+            .table td{
+                vertical-align:middle;
+                    background:-o-linear-gradient(bottom, #ffffff 5%, #d3e9ff 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #d3e9ff) );
+                background:-moz-linear-gradient( center top, #ffffff 5%, #d3e9ff 100% );
+                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff", endColorstr="#d3e9ff");	background: -o-linear-gradient(top,#ffffff,d3e9ff);
+
+                background-color:#ffffff;
+
+                border:1px solid #000000;
+                border-width:0px 1px 1px 0px;
+                text-align:left;
+                padding:10px;
+                font-size:15px;
+                font-family:Arial;
+                font-weight:normal;
+                color:#000000;
+            }
+            .table tr:first-child td{
+                background:-o-linear-gradient(bottom, #0057af 5%, #007fff 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #0057af), color-stop(1, #007fff) );
+                background:-moz-linear-gradient( center top, #0057af 5%, #007fff 100% );
+                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#0057af", endColorstr="#007fff");	background: -o-linear-gradient(top,#0057af,007fff);
+
+                background-color:#0057af;
+
+                text-align:center;
+                font-size:20px;
+                font-family:Arial;
+                font-weight:bold;
+                color:#ffffff;
+            }
         </style>
     </head>
     <body>
@@ -37,10 +67,8 @@
     $appleVal = $_POST["appleVal"];
     $bananaVal = $_POST["bananaVal"];
     $orangeVal = $_POST["orangeVal"];
-
-echo "<h2>$appleVal</h2>";
-echo "$bananaVal<br>";
-echo "$orangeVal<br>";
+    $userName = $_POST["userName"];
+    $paymentMode = $_POST["paymentMethod"];
 
     //write varibles
     $appleWrite = 0;
@@ -106,7 +134,53 @@ echo "$orangeVal<br>";
             writeFile($appleWrite,$bananaWrite, $orangeWrite);
     }
     ?>
-
         </div>
+    <div class="container">
+    <table class="table" border="1">
+        <tr>
+            <td colspan="3" class="text-center">Customer name : <?php print $userName ?></td>
+        </tr>
+
+        <tr>
+            <td>Item name</td>
+            <td>Quantity </td>
+            <td>Price</td>
+        </tr>
+        <tr>
+            <td>Apple (69&cent each)</td>
+            <td><?php print $appleVal?></td>
+            <td>$ <?php print $appleTotalPrice=$appleVal*0.69;?></td>
+        </tr>
+        <tr>
+            <td>Orange (59&cent each) </td>
+            <td> <?php print $orangeVal;?></td>
+            <td>$ <?php print $orangeTotalPrice=$orangeVal*0.59;?></td>
+        </tr>
+        <tr>
+            <td>Banana (39&cent each)</td>
+            <td><?php print $bananaVal;?></td>
+            <td>$ <?php print $bananaTotalPrice=$bananaVal*0.39;?></td>
+        </tr>
+        <tr>
+            <td colspan="3">Total price is $<?php print $allTotalCost = $appleTotalPrice+$bananaTotalPrice+$orangeTotalPrice;?></td>
+        </tr>
+        <tr>
+            <td colspan="3">Payment mode is <?php print $paymentMode;?>.</td>
+        </tr>
+        <tr>
+            <td colspan="3">Purchased on
+            <?php date_default_timezone_set('Etc/GMT-8');
+            print( date('d/m/Y g:i A'));?>.</td>
+        </tr>
+        </table>
+        <br>
+            Thank you for shopping with us online.<br>
+            Please keep your receipt your for a week.<br>
+            Fruits can be exchange within the week of your receipt.<br>
+</body>
+</html>
+
+    </div>
+
     </body>
 </html>
