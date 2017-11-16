@@ -21,7 +21,6 @@
             padding-top: 1rem;
             padding-bottom: 1rem;
         }
-
         div img {
             height: 200px;
             width: 100%;
@@ -29,7 +28,7 @@
     </style>
     <script type="text/javascript">
         //check the character input for number
-        function isInteger(name) {
+        function isInteger(name, remark) {
             var i;
             var inputChar = document.getElementById(name).value;
             //loop through all string
@@ -37,6 +36,7 @@
                 var oneChar = inputChar.charAt(i);
                 if (isNaN(oneChar)) //check for character whether is a digit
                 {
+                    document.getElementById(remark).innerHTML = "";
                     alert("Invalid digits! Please enter only numeric characters");
                     document.getElementById(name).value = "";
                     document.getElementById("totalCostId").value = "NaN";
@@ -54,6 +54,9 @@
             var bananaVal = document.getElementById("bananaValID").value;
             var totalCost = Math.round((0.69 * appleVal + 0.59 * orangeVal + 0.39 * bananaVal) * 100)  / 100;
             document.getElementById("totalCostId").value = totalCost;
+            document.getElementById("applesRemark").innerHTML = appleVal + " apples will cost $" + Math.round((0.69 * appleVal)*100) / 100;
+            document.getElementById("orangesRemark").innerHTML = orangeVal + " oranges will cost $" +  Math.round((0.59 * orangeVal)*100) / 100;
+            document.getElementById("bananasRemark").innerHTML = bananaVal + " bananas will cost $" +  Math.round((0.39 * bananaVal)*100) / 100;
         }//end calculation
 
         //check the entire form
@@ -168,7 +171,8 @@
             <div class="col-sm-4">
                 <label for="appleValID">Apple(69&cent each):</label>
                 <input type="text" name="appleVal" id="appleValID" class="form-control"
-                       placeholder="Enter amount of apples" onKeyup="isInteger('appleValID');"><br>
+                       placeholder="Enter amount of apples" onblur="getTotalCost();" onKeyup="isInteger('appleValID', 'applesRemark');getTotalCost();"><br>
+                <article id="applesRemark"></article>
                 <div id="applePopup" style="display:none;">
                     <span style="color:red;">Please enter the number of apple.</span>
                 </div>
@@ -178,7 +182,8 @@
             <div class="col-sm-4">
                 <label for="orangeValID">Orange(59&cent each):</label>
                 <input type="text" name="orangeVal" id="orangeValID" class="form-control"
-                       placeholder="Enter amount of oranges" onKeyup="isInteger('orangeValID');"><br>
+                       placeholder="Enter amount of oranges" onblur="getTotalCost();" onKeyup="isInteger('orangeValID','orangesRemark');getTotalCost();"><br>
+                <article id="orangesRemark"></article>
                 <div id="orangePopup" style="display:none;">
                     <span style="color:red;">Please enter the number of orange.</span>
                 </div>
@@ -188,7 +193,8 @@
             <div class="col-sm-4">
                 <label for="bananaValID">Banana(39&cent each):</label>
                 <input type="text" name="bananaVal" id="bananaValID" class="form-control"
-                       placeholder="Enter amount of bananas" onKeyup="isInteger('bananaValID');"><br>
+                       placeholder="Enter amount of bananas" onblur="getTotalCost();" onKeyup="isInteger('bananaValID', 'bananasRemark');getTotalCost();"><br>
+                <article id="bananasRemark"></article>
                 <div id="bananaPopup" style="display:none;">
                     <span style="color:red;">Please enter the number of banana.</span>
                 </div>
@@ -204,19 +210,23 @@
                 <input type="text" name="totalCost" class="form-control" id="totalCostId" onfocus="this.blur();"><br>
                 <h4 class="h4"><u><b>Payment Methods:</b></u></h4>
                 <div class="col-sm-4">
+                    <label for="visaID">
                     <input type="radio" name="paymentMethod" id="visaID" value="Visa"/>
-                    <label for="visaID">Visa</label>
-                    <img src="img/visa.png" class="img-responsive center-block" alt="visa">
+                    Visa<br>
+                    <img src="img/visa.png" class="img-responsive center-block" alt="visa"></label>
+
                 </div>
                 <div class="col-sm-4">
+<label for="masterID">
                     <input type="radio" name="paymentMethod" id="masterID" value="Master"/>
-                    <label for="masterID">Master</label>
-                    <img src="img/master.png" class="img-responsive center-block" alt="master">
+Master
+                    <img src="img/master.png" class="img-responsive center-block" alt="master"></label>
                 </div>
                 <div class="col-sm-4">
+                     <label for="discoverID">
                     <input type="radio" name="paymentMethod" id="discoverID" value="Discover"/>
-                    <label for="discoverID">Discover</label>
-                    <img src="img/discover.jpg" class="img-responsive center-block" alt="discover">
+                   Discover
+                    <img src="img/discover.jpg" class="img-responsive center-block" alt="discover"></label>
                 </div>
                 <div id="payPopup" style="display:none;">
                     <span style="color:red;">Kindly select the type of payment.</span>
