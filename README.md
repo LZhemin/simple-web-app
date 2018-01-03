@@ -5,6 +5,9 @@ Project was done as part of a coursework requirement for CZ3006 in AY17/18 Semes
 ## About
 This assignment aims to enhance students' understanding of Web client-side programming techniques using JavaScript and Web server-side programming techniques using PHP
 
+## Sample Front End User Interface
+![Front-End UI](img/github.png?raw=true "front-end")
+
 Folder Structure Conventions
 ============================
 
